@@ -1,0 +1,17 @@
+AbstractAccessDecisionManager.accessDenied=\uc811\uadfc\uc774 \uac70\ubd80\ub418\uc5c8\uc2b5\ub2c8\ub2e4.
+AbstractLdapAuthenticationProvider.emptyPassword=\ube44\ubc00\ubc88\ud638\uac00 \ub9de\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.
+AbstractSecurityInterceptor.authenticationNotFound=SecurityContext\uc5d0\uc11c Authentication \uac1d\uccb4\ub97c \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4.
+AbstractUserDetailsAuthenticationProvider.badCredentials=\uc790\uaca9 \uc99d\uba85\uc5d0 \uc2e4\ud328\ud558\uc600\uc2b5\ub2c8\ub2e4.
+AbstractUserDetailsAuthenticationProvider.credentialsExpired=\uc790\uaca9 \uc99d\uba85 \uc720\ud6a8 \uae30\uac04\uc774 \ub9cc\ub8cc\ub418\uc5c8\uc2b5\ub2c8\ub2e4.
+AbstractUserDetailsAuthenticationProvider.disabled=\uc720\ud6a8\ud558\uc9c0 \uc54a\uc740 \uc0ac\uc6a9\uc790\uc785\ub2c8\ub2e4.
+AbstractUserDetailsAuthenticationProvider.expired=\uc0ac\uc6a9\uc790 \uacc4\uc815\uc758 \uc720\ud6a8 \uae30\uac04\uc774 \ub9cc\ub8cc \ub418\uc5c8\uc2b5\ub2c8\ub2e4.
+AbstractUserDetailsAuthenticationProvider.locked=\uc0ac\uc6a9\uc790 \uacc4\uc815\uc774 \uc7a0\uaca8 \uc788\uc2b5\ub2c8\ub2e4.
+AbstractUserDetailsAuthenticationProvider.onlySupports=UsernamePasswordAuthenticationToken\ub9cc \uc9c0\uc6d0\ud569\ub2c8\ub2e4.
+AccountStatusUserDetailsChecker.credentialsExpired=\uc790\uaca9 \uc99d\uba85 \uc720\ud6a8 \uae30\uac04\uc774 \ub9cc\ub8cc\ub418\uc5c8\uc2b5\ub2c8\ub2e4.
+AccountStatusUserDetailsChecker.disabled=\uc720\ud6a8\ud558\uc9c0 \uc54a\uc740 \uc0ac\uc6a9\uc790\uc785\ub2c8\ub2e4.
+AccountStatusUserDetailsChecker.expired=\uc0ac\uc6a9\uc790\uacc4\uc815\uc758 \uc720\ud6a8 \uae30\uac04\uc774 \ub9cc\ub8cc \ub418\uc5c8\uc2b5\ub2c8\ub2e4.
+AccountStatusUserDetailsChecker.locked=\uc0ac\uc6a9\uc790\uacc4\uc815\uc774 \uc7a0\uaca8 \uc788\uc2b5\ub2c8\ub2e4.
+AclEntryAfterInvocationProvider.noPermission=domainobject{1}\uc5d0 \ub300\ud55c \uad8c\ud55c\uc774 Authentication {0}\uc5d0 \uc5c6\uc2b5\ub2c8\ub2e4.
+AnonymousAuthenticationProvider.incorrectKey=\uc81c\uacf5\ub41c AnonymousAuthenticationToken\uc5d0\ub294 \ud544\uc694\ub85c\ud558\ub294 key\uac00 \uc5c6\uc2b5\ub2c8\ub2e4.
+BindAuthenticator.badCredentials=\uc790\uaca9\uc99d\uba85\uc5d0 \uc2e4\ud328\ud558\uc600\uc2b5\ub2c8\ub2e4.
+BindAuthenticator.emptyPassword=\ube44\ubc00\ubc88\ud638\ud56d\ubaa9\uc774 \ube44\uc5b4 \uc788\uc2b5\ub2c8\ub2e4.

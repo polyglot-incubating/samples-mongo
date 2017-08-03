@@ -1,0 +1,47 @@
+server:
+  port: ${port:8080}
+
+spring:
+  profiles:
+    active:  default
+  session:
+    store-type: hash-map
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: I18N_MESSAGES
+
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+
+logging:
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+  level:
+    root: info
+    org.springframework: info
+    org.springframework.security: debug
+    org.chiwooplatform: debug
+
+---
+spring:
+  profiles: home
+  data:
+    mongodb:
+      host: 192.168.30.210
+      port: 27017
+      database: SAMPLES
+      
+---
+spring:
+  profiles: dev
+
+logging:
+  config: classpath:logback-dev.xml
+
+server:
+  port: ${port:8082}}

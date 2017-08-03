@@ -1,0 +1,17 @@
+AbstractAccessDecisionManager.accessDenied=Acc\u00E8s refus\u00E9
+AbstractLdapAuthenticationProvider.emptyPassword=Le mot de passe est obligatoire
+AbstractSecurityInterceptor.authenticationNotFound=Aucun objet Authentication n''a \u00E9t\u00E9 trouv\u00E9 dans le SecurityContext
+AbstractUserDetailsAuthenticationProvider.badCredentials=Les identifications sont erron\u00E9es
+AbstractUserDetailsAuthenticationProvider.credentialsExpired=Les identifications de l''utilisateur ont expir\u00E9
+AbstractUserDetailsAuthenticationProvider.disabled=Le compte utilisateur est d\u00E9sactiv\u00E9
+AbstractUserDetailsAuthenticationProvider.expired=Le compte utilisateur a expir\u00E9
+AbstractUserDetailsAuthenticationProvider.locked=Le compte utilisateur est bloqu\u00E9
+AbstractUserDetailsAuthenticationProvider.onlySupports=Seul UsernamePasswordAuthenticationToken est pris en charge
+AccountStatusUserDetailsChecker.credentialsExpired=Les identifications de l''utilisateur ont expir\u00E9
+AccountStatusUserDetailsChecker.disabled=Le compte utilisateur est d\u00E9sactiv\u00E9
+AccountStatusUserDetailsChecker.expired=Le compte utilisateur a expir\u00E9
+AccountStatusUserDetailsChecker.locked=Le compte utilisateur est bloqu\u00E9
+AclEntryAfterInvocationProvider.noPermission=L''authentification {0} n''a AUCUNE permission pour l''objet de domaine {1}
+AnonymousAuthenticationProvider.incorrectKey=L''AnonymousAuthenticationToken pr\u00E9sent\u00E9 ne contient pas la cl\u00E9 attendue
+BindAuthenticator.badCredentials=Les identifications sont erron\u00E9es
+BindAuthenticator.emptyPassword=Le mot de passe est obligatoire
