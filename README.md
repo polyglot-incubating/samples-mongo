@@ -24,7 +24,7 @@
 ## MongoDB 의 주요 요소
 
 | RDB | MongoDB |
-| :----- | :-----: | -----:|
+| :------------: | :------------:|
 | table | collection |
 | row | document |
 | column | field |
@@ -37,9 +37,12 @@
 ~~~
 db.createCollection("mydata",( {capped: true, size:100000}))
 ~~~
-capped      : capped를 true로하면 size를 정한만큼만 공간을 사용 한다.   
-                            할당된 공간을 전부 사용했을시에는 처음썻던 데이터에 덮어쓰는 방식으로 기록 한다.  
-non capped  : capped 를 false로 하면 size에 명시한 공간을 전부 사용했을시 추가로 공간을 할당 한다.
+**capped:**  
+    - capped를 true로하면 size를 정한만큼만 공간을 사용 한다.     
+        (할당된 공간을 전부 사용했을시에는 처음썻던 데이터에 덮어쓰는 방식으로 기록 한다.)
+  
+**non capped:**
+    - capped 를 false로 하면 size에 명시한 공간을 전부 사용했을시 추가로 공간을 할당 한다.
 
 * mydata 컬렉션의 현재 상태 및 정보를 분석
 ~~~
@@ -87,7 +90,7 @@ spring:
     mongodb:
       host: localhost
       port: 27017
-      database: I18N_MESSAGES
+      database: SAMPLES
 
   devtools:
     restart:
