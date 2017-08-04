@@ -1,59 +1,62 @@
 [[overview]]
 
-NoSQL 장점
-A. 클라우드 환경에 적합 하다.
-    1. 오픈소스
-    2. 하드웨어 확장에 유연하게 대처 할 수 있다.
-    3. 저 비용으로 병렬처리가 가능 하다.
+## NoSQL 장점  
+- 클라우드 환경에 적합 하다.
+    * 오픈소스
+    * 하드웨어 확장에 유연하게 대처 할 수 있다.
+    * 저 비용으로 병렬처리가 가능 하다.
 
-B. 유연한 데이터 모델 이다.
-    1. 비정형 데이터 구조 설계는 
-    2. Join 구조를 Embedded 와 Linking 으로 구현
+- 유연한 데이터 모델 이다.
+    * 비정형 데이터 구조 설계는 
+    * Join 구조를 Embedded 와 Linking 으로 구현
 
-C. Big Data 처리에 효과적
-    1. 메모리 매핑 기능을 통해 Read/Write 가 빠름
-    2. RDB 와 동일하게 데이터 처리가 가능
+- Big Data 처리에 효과적
+    * 메모리 매핑 기능을 통해 Read/Write 가 빠름
+    * RDB 와 동일하게 데이터 처리가 가능
 
-MongoDB 주요 특징
-1. JSON Type 의 도큐먼트 데이터 저장
-2. Sharding(분산)/Replica(복제)기능을 제공
-3. MapReduce(분산/병렬)처리 기능 제공
-4. Memory Mapping 기술을 기반으로 BigData 처리 
-5. 일반적인 CRUD 트랜잭션 처리도 가능
+## MongoDB 주요 특징  
+  * JSON Type 의 도큐먼트 데이터 저장
+  * Sharding(분산)/Replica(복제)기능을 제공
+  * MapReduce(분산/병렬)처리 기능 제공
+  * Memory Mapping 기술을 기반으로 BigData 처리 
+  * 일반적인 CRUD 트랜잭션 처리도 가능
 
-MongoDB 의 주요 요소
-RDB         |       MongoDB
-table       |       collection
-row         |       document
-column      |          field
-pk          |       object id
-relation    |       embedded linking
+## MongoDB 의 주요 요소
 
-컬렉션 생성
+| RDB | MongoDB |
+| :----- | :-----: | -----:|
+| table | collection |
+| row | document |
+| column | field |
+| pk | object id |
+| relation | embedded linking |
+
+## 기본적인 동작
+
+* 컬렉션 생성
 ~~~
 db.createCollection("mydata",( {capped: true, size:100000}))
 ~~~
-capped      : capped를 true로하면 size를 정한만큼만 공간을 사용 한다. 
-                            할당된 공간을 전부 사용했을시에는 처음썻던 데이터에 덮어쓰는 방식으로 기록 한다.
+capped      : capped를 true로하면 size를 정한만큼만 공간을 사용 한다.   
+                            할당된 공간을 전부 사용했을시에는 처음썻던 데이터에 덮어쓰는 방식으로 기록 한다.  
 non capped  : capped 를 false로 하면 size에 명시한 공간을 전부 사용했을시 추가로 공간을 할당 한다.
 
-mydata 컬렉션의 현재 상태 및 정보를 분석
+* mydata 컬렉션의 현재 상태 및 정보를 분석
 ~~~
 db.mydata.validate();
 ~~~
 
-컬렉션 이름 변경
+* 컬렉션 이름 변경
 ~~~
 db.mydata.rename("myData");
 ~~~
 
-myData 컬렉션 삭제
+* myData 컬렉션 삭제
 ~~~
 db.myData.drop();
 ~~~
 
-
-간단한 CURD 테스트
+* 간단한 CURD 테스트
 ~~~
 var data = {eno: 1001, name: "scott", address: "Seoul city"}
 
@@ -68,7 +71,7 @@ db.myData.remove({eno: 1001});
 ~~~
 
 
-### Environment Properties
+## Environment Properties
 
 "application-gen.yml" is the environment file.
 ~~~~
@@ -112,10 +115,15 @@ spring:
 ~~~~
 
 
+## MongoDB 스키마 및 특징
+MongoDB 의 데이타를 설계 하고 각 특징을 조금은 상세 하게 살펴 보자.
+공통 코드나 다국어 코드 관리와 같은 아주 단순한 모델을 기반으로 개념을 익히고,  
+우편코드와 같은 조금은 지연이 있는 데이터 처리를 살펴 볼 예정 이다.
+
 ### BadLanMessage
 BadLanMessage 메시지 객체는 MongoDB 에 아래와 같이 저장 된다. message code 에 대한 p-key 가 보장 되고, 
-message 의 key 에 해당 하는 locale 코드가 동적으로 저장 되는 메시지 형식 또한 단순 하게 구성 된다
-.
+message 의 key 에 해당 하는 locale 코드가 동적으로 저장 되는 메시지 형식 또한 단순 하게 구성 된다.
+
 ~~~
 { 
     "_id" : "AbstractAccessDecisionManager.accessDenied", 
@@ -219,10 +227,9 @@ db.lanNormal.createIndex({value: 1}, {unique: false, name:'idx_value'});
 
 ### ZipcodeUS
 데이타량이 많으 모델에 대한 스키마 및 분산 처리를 해 보자.
-미국의 우편코드 체계 DB 를 다운로드 하고, MongoDB 로 올려 보자.
-http://download.geonames.org/export/zip/US.zip
-스키마 구조는 아래와 같다.
+미국의 우편코드 데이터를  ("http://download.geonames.org/export/zip/US.zip" 다운로드)하고 MongoDB 로 올려 보자.
 
+스키마 구조는 아래와 같다.
 ~~~
 { 
     "_id" : ObjectId("5983eaa90a75d85f6cde883b"), 
@@ -242,8 +249,8 @@ http://download.geonames.org/export/zip/US.zip
 ~~~
 
 #### MapReduce
-MapReduce 는 데이터 분산 처리의 대명사가 되어 버린 듯한 느낌 이다.
-핵심 컨셉은 데이타 소스로부터 데이타 조각(line, row, document)들을 읽어  필터링이나 데이터 변환을 하고, reduce 로 집계를 한다.
+MapReduce 는 데이터 분산 처리의 대명사가 되어 버린 듯한 느낌 이다.  
+핵심 컨셉은 데이타 소스로부터 데이타 조각(line, row, document)들을 읽어  필터링이나 데이터 변환을 하고, reduce 로 집계를 한다.  
 map 은 간단히 r = f(x); 이며, reduce 는 map 통해  구해진 데이터 셋으로부터 min, max, sum, avg 와 같은 원하는 결과를 처리를 할 수 있다.   
 ~~~
 data = [1,2,3];
