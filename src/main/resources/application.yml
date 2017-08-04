@@ -10,7 +10,7 @@ spring:
     mongodb:
       host: localhost
       port: 27017
-      database: I18N_MESSAGES
+      database: SIMPLES
 
   devtools:
     restart:

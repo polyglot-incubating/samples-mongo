@@ -2,11 +2,13 @@ package org.chiwooplatform.samples.dam.mongo;
 
 import java.util.List;
 
-import org.chiwooplatform.samples.model.ZipcodeUS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.mapreduce.MapReduceResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+
+import org.chiwooplatform.samples.model.ZipcodeUS;
 
 import com.mongodb.WriteResult;
 
@@ -80,5 +82,12 @@ public class ZipcodeUSTemplate {
 
     public void remove(ZipcodeUS model) {
         template.remove(model, COLLECTION_NAME);
+    }
+
+    public <T> MapReduceResults<T> mapReduce(final String fnMap, final String fnReduce,
+            Class<T> clazz) {
+        MapReduceResults<T> result = template.mapReduce(COLLECTION_NAME, fnMap, fnReduce,
+                clazz);
+        return result;
     }
 }

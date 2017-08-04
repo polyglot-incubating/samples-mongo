@@ -1,12 +1,6 @@
 package org.chiwooplatform.samples.dam.mongo;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.LineNumberReader;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,31 +9,44 @@ import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.LineNumberReader;
+import java.net.URL;
+
 import org.apache.commons.io.FileUtils;
-import org.chiwooplatform.samples.AbstractMongoTests;
-import org.chiwooplatform.samples.model.ZipcodeUS;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.mapreduce.MapReduceResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import org.chiwooplatform.samples.AbstractMongoTests;
+import org.chiwooplatform.samples.model.ValueObject;
+import org.chiwooplatform.samples.model.ZipcodeUS;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@ActiveProfiles(profiles = { 
-        // 
-        "home",
-        // "default"
+@ActiveProfiles(profiles = {
+        // ~ -----
+        // "home",
+        "default"
+        // ~ -----
 })
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { AbstractMongoTests.class,
@@ -83,7 +90,7 @@ public class ZipcodeUSTemplateTest {
     }
 
     @SuppressWarnings({ "rawtypes", "resource" })
-    public List<String> zipToList(final String filename) throws IOException {
+    private List<String> zipToList(final String filename) throws IOException {
         ZipFile zip = new ZipFile("target/uszip.zip");
         for (Enumeration e = zip.entries(); e.hasMoreElements();) {
             ZipEntry entry = (ZipEntry) e.nextElement();
@@ -96,7 +103,7 @@ public class ZipcodeUSTemplateTest {
         return null;
     }
 
-    public boolean downloadUsZipcode(final String filename) throws Exception {
+    private boolean downloadUsZipcode(final String filename) throws Exception {
         String toFile = "target/uszip.zip";
         try {
             File f = new File(toFile);
@@ -104,6 +111,7 @@ public class ZipcodeUSTemplateTest {
                 return true;
             }
             String fromFile = "http://download.geonames.org/export/zip/US.zip";
+            // http://download.geonames.org/export/zip/US.zip
             FileUtils.copyURLToFile(new URL(fromFile), new File(toFile), 10000, 10000);
             return true;
         }
@@ -210,4 +218,71 @@ public class ZipcodeUSTemplateTest {
         objectMapper.writeValue(System.out, results);
     }
 
+    private String fnMap() {
+        StringBuilder b = new StringBuilder();
+        b.append("function () {");
+        b.append("    emit(this.adminName1, 1);");
+        b.append("}");
+        return b.toString();
+
+    }
+
+    // function(key, values) {
+    // var count = 0;
+    // values.forEach(function(v){
+    // count += v;
+    // });
+    // return count;
+    // }
+    private String fnReduce() {
+        StringBuilder b = new StringBuilder();
+        b.append("function (key, values) {");
+        b.append("    var count = 0;");
+        b.append("    values.forEach(function(v){");
+        b.append("        count += v;");
+        b.append("    });");
+        b.append("    return count;");
+        b.append("}");
+        return b.toString();
+
+    }
+
+    @Test
+    public void ut1006_mr() throws Exception {
+        String fnMap = fnMap();
+        String fnReduce = fnReduce();
+        MapReduceResults<ValueObject> results = template.mapReduce(fnMap, fnReduce,
+                ValueObject.class);
+        final ArrayList<ValueObject> list = new ArrayList<>();
+        for (ValueObject vo : results) {
+            list.add(vo);
+        }
+        objectMapper.writeValue(System.out, list);
+    }
+
+    @Test
+    public void ut1007_mrFile() throws Exception {
+        String fnMap = "classpath:mr/map.js";
+        String fnReduce = "classpath:mr/reduce.js";
+        MapReduceResults<ValueObject> results = template.mapReduce(fnMap, fnReduce,
+                ValueObject.class);
+        final ArrayList<ValueObject> list = new ArrayList<>();
+        for (ValueObject vo : results) {
+            list.add(vo);
+        }
+        objectMapper.writeValue(System.out, list);
+    }
+    
+    @Test
+    public void ut1008_mrGeoLocation() throws Exception {
+        String fnMap = "classpath:mr/mapGeo.js";
+        String fnReduce = "classpath:mr/reduce.js";
+        MapReduceResults<ValueObject> results = template.mapReduce(fnMap, fnReduce,
+                ValueObject.class);
+        final ArrayList<ValueObject> list = new ArrayList<>();
+        for (ValueObject vo : results) {
+            list.add(vo);
+        }
+        objectMapper.writeValue(System.out, list);
+    }
 }
